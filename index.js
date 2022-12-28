@@ -54,31 +54,61 @@ app.post('/post', async (req, res) => {
 
 app.put('/post/:id', async (req, res) => {
     try {
-      const id = req.params.id;
-      const filter = { _id: ObjectId(id) };
-      const user = req.body;
-      const option = { upsert: true };
-      const updateReview = {
-        $set: {
-          likes: user.likes
+        const id = req.params.id;
+        const filter = { _id: ObjectId(id) };
+        const user = req.body;
+        const option = { upsert: true };
+        const updateReview = {
+            $set: {
+                likes: user.likes,
+            }
         }
-      }
-      const result = await PostCollection.updateOne(filter, updateReview, option);
-      res.send(result);
+        const result = await PostCollection.updateOne(filter, updateReview, option);
+        res.send(result);
     } catch (error) {
-  
+
     }
-  })
+})
 
-
-app.get('/post', async (req, res) => {
+app.post('/posts/:id', async (req, res) => {
     try {
-        const query = req.body;
-        const result = await PostCollection.find(query).toArray()
-        res.send(result)
+        const id = req.params.id;
+        const filter = { _id: ObjectId(id) };
+        const user = req.body;
+        const option = { upsert: true };
+        const updateReview = {
+            $set: {
+                comment: user.comment
+            }
+        }
+        const result = await PostCollection.updateOne(filter, updateReview, option);
+        res.send(result);
     } catch (error) {
 
     }
 })
 
 
+
+app.get('/post', async (req, res) => {
+    try {
+        const query = {}
+        const sort = { likes: -1 };
+        const cursor = await PostCollection.find(query).sort(sort).toArray()
+        res.send(cursor)
+    } catch (error) {
+
+    }
+})
+
+
+app.get('/post/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const filter = { _id: ObjectId(id) }
+        const result = await PostCollection.findOne(filter)
+        res.send(result)
+    } catch (error) {
+
+    }
+})
