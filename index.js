@@ -9,13 +9,11 @@ app.use(cors());
 app.use(express.json());
 
 
-//social-media
-//2FWyFVc6BRpF8JlA
 
-
-
-const uri = "mongodb+srv://social-media:2FWyFVc6BRpF8JlA@cluster0.risshmy.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.risshmy.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+console.log(uri);
 
 async function run() {
     try {
