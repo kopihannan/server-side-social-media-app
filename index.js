@@ -35,7 +35,7 @@ app.get('/', (res, req) => {
 })
 
 app.listen(port, () => {
-    console.log(`server is now runnig ${port}`);
+    console.log(`social media server is now runnig ${port}`);
 })
 
 
