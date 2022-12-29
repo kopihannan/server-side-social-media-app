@@ -29,6 +29,7 @@ run().catch(console.dir);
 
 
 const PostCollection = client.db('post').collection('userpost')
+const ProfileCollection = client.db('post').collection('profile')
 
 app.get('/', (res, req) => {
     req.send(`${port} social media Server is runnig`)
@@ -107,6 +108,16 @@ app.get('/post/:id', async (req, res) => {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) }
         const result = await PostCollection.findOne(filter)
+        res.send(result)
+    } catch (error) {
+
+    }
+})
+
+app.post('/profile', async (req, res )=>{
+    try {
+        const post = req.body;
+        const result = await ProfileCollection.insertOne(post).toArray()
         res.send(result)
     } catch (error) {
 
